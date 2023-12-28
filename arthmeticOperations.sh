@@ -23,3 +23,5 @@ echo "division of $num1 and $num2 is $div"
 #modolus of two numbers
 mod=`expr $num1 % $num2`
 echo "mod of $num1 and $num2 is $mod"
+
+
