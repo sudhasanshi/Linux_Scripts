@@ -1,0 +1,79 @@
+#!/bin/bash
+
+#update existing packages
+sudo apt update
+
+#install default jre to run java app
+sudo apt install default-jre -y
+
+echo "enter username"
+read user
+echo "enter paassword"
+read password
+
+#install it on /opt directory
+cd /opt/
+#URL to install tomcat
+echo "enter tomcat url"
+read url
+
+#install tomcat using wget
+wget $url
+
+#untar tomacat
+tar -xvvf apache-tomcat-8.5.97.tar.gz
+
+#changeing dir to apache
+cd apache-tomcat-8.5.97
+
+#changing port number using sed
+cd conf
+sed -i 's/8080/8082/g' server.xml
+
+#adding configuration details for Tomcat
+sed -i -e '55 a\<role rolename="manager-gui" /> \n<user username="'$user'" password="'$password'" roles="manager-gui" />\n<!-- user admin can access manager and admin section both --> \n<role rolename="admin-gui" /> \n<user username="'$user'" password="'$password'" roles="manager-gui, admin-gui" />' tomcat-users.xml
+
+# commenting 21st and 22nd line to enable access to Tomcat manager app
+cd ..
+cd webapps/manager/META-INF/
+sed -i '21s/^/<!--/g' context.xml
+sed -i '22s/$/ -->/g' context.xml
+cd ../../..
+
+#shutdown and restart tomcat to update the changes made 
+cd bin
+./shutdown.sh
+./startup.sh
+
+#coming back to root dir
+
+cd ../../..
+
+#clone git url in home dir
+cd /home/ubuntu
+
+#to provide git url
+echo "enter git url to clone"
+read giturl
+#cloning git url
+git clone $giturl
+
+#moving to source file
+
+value=`echo "$giturl" | awk -F "/" '{print $NF}' | cut -d '.' -f1`
+cd $value
+
+#install maven
+apt install maven-y
+
+#creating target folder
+mvn clean install
+
+#moving inside target folder
+cd target
+
+#getting war folder
+file=`ls -lrt | awk 'NR==2 {print $NF}'`
+
+#coping war folder to apache
+cp -r $file /opt/apache-tomcat-8.5.97/webapps/
