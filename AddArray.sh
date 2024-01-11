@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #adding content of array
 array=" 20 47 08 86 76 "
 for i in $array
