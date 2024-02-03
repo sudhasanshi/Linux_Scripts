@@ -10,5 +10,10 @@
 3. How would you handle errors and exceptions in a Bash script?
    error handling is achieved through the use of exit statuses 
    0 indicates success and non-zero values indicates errors/script is failed
-4.
+4. How would you write a Bash script that takes command line arguments?
+   #!/bin/bash
+   echo "Script Name: $0"
+   echo "First Argument: $1"
+   echo "Second Argument: $2"
+   In this script, $0 is the script name itself and $1, $2 are the first and second arguments respectively.
    
