@@ -1,0 +1,14 @@
+1. Can you explain what a shebang is in a Bash script and why it is important?
+   A shebang in a Bash script is the initial line starting with “#!” followed by the path to the interpreter.
+   it informs the system which interpreter to use for executing the script
+   #!/bin/bash’ indicates that the script should be run using bash shell
+2. How can you debug a Bash script? What tools or techniques would you use?
+  - using the set-x option when running the script, which prints each command to stdout before execution, allowing you to trace the program’s flow.
+  - technique is utilizing set -e, which causes the script to exit immediately if any command exits with a non-zero status, useful for catching errors early.
+   #!/bin/bash
+   set -e
+3. How would you handle errors and exceptions in a Bash script?
+   error handling is achieved through the use of exit statuses 
+   0 indicates success and non-zero values indicates errors/script is failed
+4.
+   
