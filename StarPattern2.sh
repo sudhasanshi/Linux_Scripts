@@ -8,3 +8,10 @@ do
 	done
 	echo ""
 done
+
+output
+*
+**
+***
+****
+*****
